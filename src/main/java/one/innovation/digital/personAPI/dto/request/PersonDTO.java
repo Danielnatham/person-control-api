@@ -40,5 +40,5 @@ public class PersonDTO {
     @Valid
     private List<Phone> phones;
 
-    private String dataNascimento;
+    private String birthDate;
 }

@@ -1,13 +1,13 @@
-##DEV - Environment
-#
-#app:
-#  message: This is a property file for the application ${spring.application.name} for Dev environment
-#
-#spring:
-#  datasource:
-#    driver-class-name: org.h2.Driver
-#    url: jdbc:h2:mem:testdb
-#    username: sa
-#    password: sa
-#  jpa:
-#    database-platform: org.hibernate.dialect.H2Dialect
+#DEV - Environment
+
+app:
+  message: This is a property file for the application ${spring.application.name} for Dev environment
+
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect

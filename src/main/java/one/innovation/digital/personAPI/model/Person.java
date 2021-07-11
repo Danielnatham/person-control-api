@@ -1,19 +1,19 @@
 package one.innovation.digital.personAPI.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
 
-@NoArgsConstructor
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Person {
 
@@ -33,6 +33,6 @@ public class Person {
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<Phone> phones;
 
-    private LocalDate birthday;
+    private LocalDate birthdate;
 
 }

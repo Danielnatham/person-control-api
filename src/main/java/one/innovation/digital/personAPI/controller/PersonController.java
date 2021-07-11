@@ -1,9 +1,9 @@
 package one.innovation.digital.personAPI.controller;
 
+import lombok.AllArgsConstructor;
 import one.innovation.digital.personAPI.dto.request.PersonDTO;
 import one.innovation.digital.personAPI.dto.response.MessageResponseDTO;
 import one.innovation.digital.personAPI.exception.PersonNotFoundException;
-import one.innovation.digital.personAPI.model.Person;
 import one.innovation.digital.personAPI.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,14 +14,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/person")
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class PersonController {
 
     PersonService personService;
-
-    @Autowired
-    public PersonController(PersonService personService) {
-        this.personService = personService;
-    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -35,12 +31,18 @@ public class PersonController {
     }
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     public PersonDTO findById(@PathVariable Long id) throws PersonNotFoundException {
         return personService.findById ( id );
     }
 
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public MessageResponseDTO updateById(@PathVariable Long id, @RequestBody PersonDTO personDTO) throws PersonNotFoundException {
+        return personService.updateById(id , personDTO);
+    }
+
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable Long id) throws PersonNotFoundException {
         personService.deleteById(id);
     }

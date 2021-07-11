@@ -1,5 +1,6 @@
 package one.innovation.digital.personAPI.service;
 
+import lombok.AllArgsConstructor;
 import one.innovation.digital.personAPI.dto.request.PersonDTO;
 import one.innovation.digital.personAPI.dto.response.MessageResponseDTO;
 import one.innovation.digital.personAPI.exception.PersonNotFoundException;
@@ -13,29 +14,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class PersonService {
 
     private final PersonRepository personRepository;
     private final PersonMapper personMapper;
 
-    @Autowired
-    public PersonService(PersonRepository personRepository, PersonMapper personMapper) {
-        this.personRepository = personRepository;
-        this.personMapper = personMapper;
-    }
-
     public MessageResponseDTO createPerson(PersonDTO personDTO) {
 
         Person person = personMapper.toPerson ( personDTO );
 
-
-
         Person savedPersonDTO = personRepository.save ( person );
 
-        return MessageResponseDTO
-                .builder ()
-                .message ( "Pessoa criada com ID: " + savedPersonDTO.getId () )
-                .build ();
+        return createMessageResponse ( savedPersonDTO.getId (), "Pessoa criada com ID: " );
     }
 
     public List<PersonDTO> listAll() {
@@ -59,8 +50,27 @@ public class PersonService {
 
     }
 
+    public MessageResponseDTO updateById(Long id, PersonDTO personDTO) throws PersonNotFoundException {
+        verifyIfExist ( id );
+
+        Person person = personMapper.toPerson ( personDTO );
+
+        Person savedPersonDTO = personRepository.save ( person );
+
+        return createMessageResponse ( savedPersonDTO.getId (), "Pessoa atualizada com ID: " );
+    }
+
+    private MessageResponseDTO createMessageResponse(Long id, String message) {
+        return MessageResponseDTO
+                .builder ()
+                .message ( message + id )
+                .build ();
+    }
+
     private Person verifyIfExist(Long id) throws PersonNotFoundException {
         return personRepository.findById ( id )
                 .orElseThrow ( () -> new PersonNotFoundException ( id ) );
     }
+
+
 }

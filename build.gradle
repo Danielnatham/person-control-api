@@ -27,6 +27,7 @@ dependencies {
 
 	compileOnly 'org.projectlombok:lombok'
 
+
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
 	runtimeOnly 'com.h2database:h2'
@@ -36,9 +37,8 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
 
+
 	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
-
-
 
 }
 
